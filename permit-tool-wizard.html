@@ -1,0 +1,2518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile Culinaire Permit Readiness Assessment</title>
+  
+  <!-- Google Fonts - Inter (fallback) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Adobe Fonts - Transducer -->
+  <!-- Replace YOUR_KIT_ID with your actual Adobe Fonts kit ID -->
+  <!-- <link rel="stylesheet" href="https://use.typekit.net/YOUR_KIT_ID.css"> -->
+  
+  <!-- HubSpot Tracking Code (Optional - for Method 3) -->
+  <!-- Uncomment and add your HubSpot tracking code here if you want to use tracking method -->
+  <!-- 
+  <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/YOUR_PORTAL_ID.js"></script>
+  -->
+  
+  <style>
+    :root {
+      --text-color: #314254;
+      --title-color: #314254;
+      --cta-text: #ffffff;
+      --cta-background: #286140;
+      --success-color: #22c55e;
+      --warning-color: #f59e0b;
+      --danger-color: #ef4444;
+      --font-family: 'Transducer', 'Inter', sans-serif;
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --border-radius: 12px;
+      --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--title-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .header p {
+      color: #64748b;
+      font-size: 1rem;
+    }
+
+    /* Progress Steps */
+    .progress-steps {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      position: relative;
+      padding: 0 1rem;
+    }
+
+    .progress-steps::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background: var(--border-color);
+      z-index: 0;
+    }
+
+    .step-indicator {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      flex: 1;
+    }
+
+    .step-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 2px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 0.5rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .step-indicator.active .step-circle {
+      background: var(--title-color);
+      border-color: var(--title-color);
+      color: var(--cta-text);
+    }
+
+    .step-indicator.completed .step-circle {
+      background: var(--success-color);
+      border-color: var(--success-color);
+      color: var(--cta-text);
+    }
+
+    .step-indicator.completed .step-circle::after {
+      content: '✓';
+    }
+
+    .step-label {
+      font-size: 0.75rem;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .step-indicator.active .step-label {
+      color: var(--title-color);
+      font-weight: 600;
+    }
+
+    /* Step Container */
+    .step {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 2rem;
+    }
+
+    .step-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-color);
+    }
+
+    .step-subtitle {
+      color: #64748b;
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+
+    /* Form Elements */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: var(--text-color);
+      font-size: 0.95rem;
+    }
+
+    .form-group label .required {
+      color: var(--danger-color);
+      margin-left: 2px;
+    }
+
+    .radio-group, .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .radio-option, .checkbox-option {
+      display: flex;
+      align-items: flex-start;
+      padding: 1rem;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: var(--card-bg);
+      user-select: none;
+    }
+
+    .radio-option:hover, .checkbox-option:hover {
+      border-color: var(--title-color);
+      background: rgba(40, 97, 64, 0.05);
+    }
+
+    .radio-option input[type="radio"],
+    .checkbox-option input[type="checkbox"] {
+      margin-right: 0.75rem;
+      margin-top: 0.125rem;
+      cursor: pointer;
+      pointer-events: none;
+    }
+
+    .radio-option.selected,
+    .checkbox-option.selected {
+      border-color: var(--title-color);
+      background: rgba(40, 97, 64, 0.1);
+    }
+
+    .radio-option label,
+    .checkbox-option label {
+      flex: 1;
+      cursor: pointer;
+      margin: 0;
+      font-weight: 400;
+    }
+
+    .form-group select,
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="tel"] {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.2s;
+      background: var(--card-bg);
+      color: var(--text-color);
+    }
+
+    .form-group select:focus,
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--title-color);
+      box-shadow: 0 0 0 3px rgba(40, 97, 64, 0.1);
+    }
+
+    .help-text {
+      font-size: 0.875rem;
+      color: #64748b;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+
+    /* Location Search */
+    .location-input {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .location-input input {
+      flex: 1;
+    }
+
+    .location-input button {
+      padding: 0.75rem 1.5rem;
+      background: var(--title-color);
+      color: var(--cta-text);
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .location-input button:hover {
+      background: #1f4a2f;
+    }
+
+    .location-results {
+      margin-top: 1rem;
+    }
+
+    .location-result {
+      padding: 1rem;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .location-result:hover {
+      border-color: var(--title-color);
+      background: rgba(40, 97, 64, 0.05);
+    }
+
+    .location-result.selected {
+      border-color: var(--title-color);
+      background: rgba(40, 97, 64, 0.1);
+    }
+
+    /* Navigation Buttons */
+    .nav-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    .nav-buttons.has-prev {
+      justify-content: space-between;
+    }
+
+    .btn {
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 44px;
+    }
+
+    .btn-primary {
+      background: var(--cta-background);
+      color: var(--cta-text);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: #1f4a2f;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
+    }
+
+    .btn-secondary {
+      background: var(--card-bg);
+      color: var(--text-color);
+      border: 2px solid var(--border-color);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      border-color: var(--title-color);
+      color: var(--title-color);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Results Page */
+    .results-container {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .score-circle {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 1rem;
+      position: relative;
+    }
+
+    .score-circle svg {
+      transform: rotate(-90deg);
+    }
+
+    .score-circle .score-value {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+
+    .score-label {
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+    }
+
+    .score-category {
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+
+    .score-category.ready {
+      background: rgba(34, 197, 94, 0.1);
+      color: var(--success-color);
+    }
+
+    .score-category.almost {
+      background: rgba(245, 158, 11, 0.1);
+      color: var(--warning-color);
+    }
+
+    .score-category.action {
+      background: rgba(245, 158, 11, 0.2);
+      color: #d97706;
+    }
+
+    .score-category.significant {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--danger-color);
+    }
+
+    .missing-requirements {
+      margin-top: 2rem;
+    }
+
+    .category {
+      margin-bottom: 2rem;
+    }
+
+    .category h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+    }
+
+    .category ul {
+      list-style: none;
+    }
+
+    .category li {
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+      border-radius: 8px;
+      border-left: 4px solid;
+    }
+
+    .category li.critical {
+      background: rgba(239, 68, 68, 0.05);
+      border-left-color: var(--danger-color);
+    }
+
+    .category li.warning {
+      background: rgba(245, 158, 11, 0.05);
+      border-left-color: var(--warning-color);
+    }
+
+    .state-guidance {
+      background: rgba(40, 97, 64, 0.05);
+      border-left: 4px solid var(--title-color);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-top: 1.5rem;
+    }
+
+    .state-guidance h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+    }
+
+    .state-guidance ul,
+    .state-guidance ol {
+      margin-left: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .state-guidance li {
+      margin-bottom: 0.5rem;
+      color: var(--text-color);
+    }
+
+    .state-guidance a {
+      color: var(--title-color);
+      text-decoration: none;
+    }
+
+    .state-guidance a:hover {
+      text-decoration: underline;
+    }
+
+    .timeline {
+      background: var(--bg-color);
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+      margin: 1.5rem 0;
+    }
+
+    .timeline-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--title-color);
+      margin: 0.5rem 0;
+    }
+
+    .links-section {
+      margin-top: 1.5rem;
+    }
+
+    .links-section h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--text-color);
+    }
+
+    .links-section a {
+      display: inline-block;
+      color: var(--title-color);
+      text-decoration: none;
+      margin-right: 1rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .links-section a:hover {
+      text-decoration: underline;
+    }
+
+    .results-container {
+      position: relative;
+      min-height: 600px;
+    }
+
+    /* Blurred results background */
+    .results-content.blurred {
+      filter: blur(8px);
+      pointer-events: none;
+      user-select: none;
+      opacity: 0.6;
+      transition: filter 0.3s ease, opacity 0.3s ease;
+    }
+
+    /* Email gate overlay - centered on top */
+    .email-gate-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.3);
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .email-gate-card {
+      background: #ffffff;
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+    }
+
+    .email-gate-card h3 {
+      color: var(--text-color);
+      margin-bottom: 0.5rem;
+      font-size: 1.5rem;
+    }
+
+    .email-gate-card > p {
+      color: #666;
+      margin-bottom: 1.5rem;
+    }
+
+    .email-gate-card .form-group {
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+
+    .email-gate-card label {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-weight: 500;
+      color: var(--text-color);
+      font-size: 0.9rem;
+    }
+
+    .email-gate-card input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: var(--font-family);
+    }
+
+    .email-gate-card input:focus {
+      outline: none;
+      border-color: var(--cta-background);
+      box-shadow: 0 0 0 3px rgba(40, 97, 64, 0.1);
+    }
+
+    .cta-button {
+      width: 100%;
+      padding: 1rem;
+      background-color: var(--cta-background);
+      color: var(--cta-text);
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      font-family: var(--font-family);
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: background-color 0.2s;
+    }
+
+    .cta-button:hover {
+      background-color: #1e4a30;
+    }
+
+    .privacy {
+      font-size: 0.8rem;
+      color: #888;
+      margin-top: 1rem;
+    }
+
+    /* UNLOCKED STATE - After form submission */
+    .results-container.unlocked .email-gate-overlay {
+      display: none;
+    }
+
+    .results-container.unlocked .results-content {
+      filter: none;
+      pointer-events: auto;
+      user-select: auto;
+      opacity: 1;
+    }
+
+    /* Score section styling */
+    .score-section {
+      text-align: center;
+      padding: 2rem;
+      background: #f8f9fa;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+    }
+
+    .score-circle {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 1rem;
+      position: relative;
+    }
+
+    .score-value {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--text-color);
+    }
+
+    .score-label {
+      font-size: 1.2rem;
+      color: var(--text-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .score-category {
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      display: inline-block;
+    }
+
+    .score-category.ready { background: #dcfce7; color: #166534; }
+    .score-category.almost { background: #fef9c3; color: #854d0e; }
+    .score-category.action { background: #fed7aa; color: #9a3412; }
+    .score-category.significant { background: #fecaca; color: #991b1b; }
+
+    .timeline-section {
+      background: var(--bg-color);
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+      margin: 1.5rem 0;
+    }
+
+    .timeline-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--title-color);
+      margin: 0.5rem 0;
+    }
+
+    .agency-links {
+      margin-top: 1.5rem;
+    }
+
+    .agency-links h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--text-color);
+    }
+
+    .agency-links-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .agency-link {
+      display: inline-block;
+      color: var(--title-color);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 0.5rem 0;
+    }
+
+    .agency-link:hover {
+      text-decoration: underline;
+    }
+
+    .email-gate {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--card-bg);
+      padding: 2.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+      z-index: 10;
+      width: 90%;
+      max-width: 500px;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .email-gate.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .email-gate h4 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-color);
+    }
+
+    .email-gate p {
+      color: #64748b;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+    }
+
+    .email-gate form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 0 auto;
+    }
+
+    .email-gate .privacy {
+      font-size: 0.875rem;
+      color: #64748b;
+      margin-top: 1rem;
+    }
+
+    .conditional-question {
+      display: none;
+      margin-top: 1rem;
+      padding-left: 1rem;
+      border-left: 3px solid var(--title-color);
+    }
+
+    .conditional-question.show {
+      display: block;
+    }
+
+    /* State Notice Box */
+    .state-notice-box {
+      background-color: #fef3cd;
+      border: 1px solid #ffc107;
+      border-left: 4px solid #ffc107;
+      border-radius: 4px;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+
+    .state-notice-box p {
+      margin: 0.5rem 0;
+      color: var(--text-color);
+    }
+
+    .state-notice-box p:first-child {
+      font-size: 1.1rem;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem 0.5rem;
+      }
+
+      .step-card {
+        padding: 1.5rem;
+      }
+
+      .progress-steps {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .step-indicator {
+        flex: 0 0 calc(33.333% - 0.5rem);
+      }
+
+      .step-label {
+        font-size: 0.65rem;
+      }
+
+      .nav-buttons {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .location-input {
+        flex-direction: column;
+      }
+    }
+
+    @media print {
+      .nav-buttons,
+      .email-gate {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>Mobile Kitchen Permit Assessment - Oregon</h1>
+      <p>Mobile Culinaire - Mobile Kitchen Trailer Permit Readiness Tool</p>
+    </div>
+
+    <!-- Progress Steps -->
+    <div class="progress-steps">
+      <div class="step-indicator active" data-step="1">
+        <div class="step-circle">1</div>
+        <div class="step-label">Project Type</div>
+      </div>
+      <div class="step-indicator" data-step="2">
+        <div class="step-circle">2</div>
+        <div class="step-label">Regulatory</div>
+      </div>
+      <div class="step-indicator" data-step="3">
+        <div class="step-circle">3</div>
+        <div class="step-label">Site & Utilities</div>
+      </div>
+      <div class="step-indicator" data-step="4">
+        <div class="step-circle">4</div>
+        <div class="step-label">Safety</div>
+      </div>
+      <div class="step-indicator" data-step="5">
+        <div class="step-circle">5</div>
+        <div class="step-label">Results</div>
+      </div>
+    </div>
+
+    <!-- Step 1: Project Type -->
+    <div class="step active" id="step1">
+      <div class="step-card">
+        <h2 class="step-title">Tell us about your project</h2>
+        <p class="step-subtitle">Help us understand your mobile kitchen trailer deployment scenario</p>
+        
+        <div class="form-group">
+          <label>What type of project is this? <span class="required">*</span></label>
+          <div class="radio-group">
+            <div class="radio-option" data-value="renovation">
+              <input type="radio" name="projectType" id="type-renovation" value="renovation" required>
+              <label for="type-renovation">Kitchen renovation</label>
+            </div>
+            <div class="radio-option" data-value="expansion">
+              <input type="radio" name="projectType" id="type-expansion" value="expansion" required>
+              <label for="type-expansion">Kitchen expansion</label>
+            </div>
+            <div class="radio-option" data-value="disaster">
+              <input type="radio" name="projectType" id="type-disaster" value="disaster" required>
+              <label for="type-disaster">Emergency / disaster recovery</label>
+            </div>
+            <div class="radio-option" data-value="construction">
+              <input type="radio" name="projectType" id="type-construction" value="construction" required>
+              <label for="type-construction">New construction support</label>
+            </div>
+            <div class="radio-option" data-value="seasonal">
+              <input type="radio" name="projectType" id="type-seasonal" value="seasonal" required>
+              <label for="type-seasonal">Seasonal / peak demand operations</label>
+            </div>
+            <div class="radio-option" data-value="remote">
+              <input type="radio" name="projectType" id="type-remote" value="remote" required>
+              <label for="type-remote">Remote site operations</label>
+            </div>
+            <div class="radio-option" data-value="event">
+              <input type="radio" name="projectType" id="type-event" value="event" required>
+              <label for="type-event">Event catering</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Is there an existing permitted food service facility on-site? <span class="required">*</span></label>
+          <div class="radio-group">
+            <div class="radio-option" data-value="yes">
+              <input type="radio" name="existingFacility" id="facility-yes" value="yes" required>
+              <label for="facility-yes">✅ Yes - we have an active food service license</label>
+            </div>
+            <div class="radio-option" data-value="no">
+              <input type="radio" name="existingFacility" id="facility-no" value="no" required>
+              <label for="facility-no">❌ No - this is a new/temporary location without existing food service</label>
+            </div>
+          </div>
+          <div class="help-text">This determines Scenario A vs Scenario B path</div>
+        </div>
+
+        <div class="form-group">
+          <label for="facilityType">What type of facility? <span class="required">*</span></label>
+          <select id="facilityType" required>
+            <option value="">Select facility type...</option>
+            <option value="hotel">Hotel / Resort</option>
+            <option value="hospital">Hospital / Healthcare</option>
+            <option value="senior">Senior Living / Assisted Living</option>
+            <option value="university">University / College</option>
+            <option value="school">K-12 School</option>
+            <option value="corporate">Corporate Campus</option>
+            <option value="military">Military Base</option>
+            <option value="correctional">Correctional Facility</option>
+            <option value="venue">Event Venue</option>
+            <option value="construction">Construction Site</option>
+            <option value="disaster">Disaster Relief Site</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Regulatory Readiness -->
+    <div class="step" id="step2">
+      <div class="step-card">
+        <h2 class="step-title">Current compliance status</h2>
+        <p class="step-subtitle" id="step2Subtitle">Tell us about your current regulatory compliance</p>
+        
+        <div id="regulatoryQuestions"></div>
+      </div>
+    </div>
+
+    <!-- Step 3: Site & Utilities -->
+    <div class="step" id="step3">
+      <div class="step-card">
+        <h2 class="step-title">Site and utility readiness</h2>
+        <p class="step-subtitle">Information about your site setup and utilities</p>
+        
+        <div id="siteQuestions"></div>
+      </div>
+    </div>
+
+    <!-- Step 4: Safety & Compliance -->
+    <div class="step" id="step4">
+      <div class="step-card">
+        <h2 class="step-title">Safety and documentation</h2>
+        <p class="step-subtitle">Safety requirements and documentation status</p>
+        
+        <div id="safetyQuestions"></div>
+      </div>
+    </div>
+
+    <!-- Step 5: Results -->
+    <div class="step" id="step5">
+      <div class="results-container" id="resultsContainer">
+        <!-- EMAIL GATE OVERLAY - Appears on TOP of blurred results -->
+        <div id="email-gate-overlay" class="email-gate-overlay">
+          <div class="email-gate-card">
+            <h3>🔓 Unlock Your Results</h3>
+            <p>Enter your details to reveal your complete permit readiness assessment.</p>
+            
+            <form id="unlock-form">
+              <div class="form-group">
+                <label for="full-name">Full Name *</label>
+                <input type="text" id="full-name" name="fullName" placeholder="John Smith" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="company-name">Company Name *</label>
+                <input type="text" id="company-name" name="companyName" placeholder="ABC Hotels" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" placeholder="john@company.com" required>
+              </div>
+              
+              <button type="submit" class="cta-button">Reveal My Results →</button>
+            </form>
+            
+            <p class="privacy">🔒 Your information is confidential. No spam.</p>
+          </div>
+        </div>
+        
+        <!-- BLURRED RESULTS - Hidden until form submitted -->
+        <div id="results-content" class="results-content blurred">
+          <div id="resultsContentInner"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" id="prevBtn" style="display: none;">
+        ← Previous
+      </button>
+      <button class="btn btn-primary" id="nextBtn">
+        Next →
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // State Requirements Configuration
+    const stateRequirements = {
+      "Oregon": {
+        abbrev: "OR",
+        covered: true,
+        healthAgency: "County Environmental Health",
+        foodHandlerRequired: true,
+        foodHandlerName: "Oregon Food Handler Card",
+        foodHandlerValidity: "3 years",
+        cfmRequired: true,
+        cfmValidity: "5 years",
+        hcdRequired: false,
+        commissaryRequired: "scenario_b_only",
+        commissaryNote: "Often not required when supporting existing facility",
+        wastewaterRule: "15% larger than potable water tank",
+        permitFee: "$200-500",
+        timeline: "2-4 weeks",
+        links: {
+          health: "https://www.oregon.gov/oha/PH/HEALTHYENVIRONMENTS/FOODSAFETY",
+          fire: "https://www.oregon.gov/osfm",
+          building: "https://www.oregon.gov/bcd"
+        }
+      }
+    };
+
+    const genericRequirements = {
+      message: "This assessment is specific to Oregon permit requirements.",
+      genericChecklist: [
+        "Contact local Health Department for food service permit requirements",
+        "Obtain Certified Food Manager certification",
+        "Ensure staff have Food Handler Cards (if required by state/county)",
+        "Contact Fire Marshal for temporary structure approval",
+        "Contact Building Department for Temporary Use Permit",
+        "Verify zoning allows temporary food service structures",
+        "Prepare site plan showing trailer placement",
+        "Arrange utilities: power, water, wastewater disposal",
+        "Obtain liability insurance",
+        "Schedule pre-operational inspection"
+      ]
+    };
+
+    // Scoring Weights
+    const scoringWeights = {
+      validFoodServiceLicense: 10,
+      certifiedFoodManager: 10,
+      foodHandlerCards: 8,
+      commissaryAgreement: 8,
+      preOperationalInspection: 8,
+      temporaryUsePermit: 10,
+      healthDeptApproval: 10,
+      fireMarshalApproval: 10,
+      zoningConfirmation: 6,
+      sitePlan: 8,
+      powerSource: 6,
+      generatorPermit: 6,
+      propanePermit: 8,
+      waterConnection: 6,
+      backflowPrevention: 6,
+      wasteDisposal: 6,
+      greaseInterceptor: 6,
+      licensedContractors: 8,
+      fireSuppressionDocs: 10,
+      type1VentilationHood: 8,
+      classKFireExtinguisher: 6,
+      emergencyShutoffs: 6,
+      propaneTanksSecured: 6,
+      adaAccess: 4,
+      liabilityInsurance: 8,
+      staffEmergencyTraining: 6
+    };
+
+    // Wizard State
+    let currentStep = 1;
+    const totalSteps = 5;
+    let wizardData = {
+      projectType: null,
+      existingFacility: null,
+      facilityType: null,
+      scenario: null,
+      state: "Oregon",
+      answers: {}
+    };
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      setupEventListeners();
+      updateProgress();
+    });
+
+    function setupEventListeners() {
+      // Make entire radio option box clickable
+      document.querySelectorAll('.radio-option').forEach(option => {
+        option.addEventListener('click', function(e) {
+          // Don't trigger if clicking directly on the radio input (to avoid double-trigger)
+          if (e.target.type !== 'radio') {
+            const radio = this.querySelector('input[type="radio"]');
+            if (radio && !radio.disabled) {
+              radio.checked = true;
+              radio.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+          }
+        });
+      });
+
+      // Radio button handlers
+      document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+          const option = this.closest('.radio-option');
+          if (option) {
+            option.parentElement.querySelectorAll('.radio-option').forEach(opt => {
+              opt.classList.remove('selected');
+            });
+            option.classList.add('selected');
+          }
+
+          if (this.name === 'projectType') {
+            wizardData.projectType = this.value;
+          } else if (this.name === 'existingFacility') {
+            wizardData.existingFacility = this.value;
+            wizardData.scenario = this.value === 'yes' ? 'A' : 'B';
+          }
+        });
+      });
+
+      // Facility type
+      document.getElementById('facilityType').addEventListener('change', function() {
+        wizardData.facilityType = this.value;
+      });
+
+      // Navigation
+      document.getElementById('nextBtn').addEventListener('click', nextStep);
+      document.getElementById('prevBtn').addEventListener('click', previousStep);
+    }
+
+
+    function updateProgress() {
+      document.querySelectorAll('.step-indicator').forEach((indicator, index) => {
+        const stepNum = index + 1;
+        indicator.classList.remove('active', 'completed');
+        if (stepNum < currentStep) {
+          indicator.classList.add('completed');
+        } else if (stepNum === currentStep) {
+          indicator.classList.add('active');
+        }
+      });
+    }
+
+    function nextStep() {
+      if (validateStep(currentStep)) {
+        if (currentStep < totalSteps) {
+          document.getElementById(`step${currentStep}`).classList.remove('active');
+          currentStep++;
+          document.getElementById(`step${currentStep}`).classList.add('active');
+          updateProgress();
+          updateNavButtons();
+
+          if (currentStep === 2) {
+            generateRegulatoryQuestions();
+          } else if (currentStep === 3) {
+            generateSiteQuestions();
+          } else if (currentStep === 4) {
+            generateSafetyQuestions();
+          } else if (currentStep === 5) {
+            generateResults();
+            // Ensure email gate overlay is visible when entering step 5
+            setTimeout(() => {
+              const emailGate = document.getElementById('email-gate-overlay');
+              if (emailGate) {
+                emailGate.style.display = 'flex';
+              }
+              const resultsContainer = document.getElementById('resultsContainer');
+              if (resultsContainer) {
+                resultsContainer.classList.remove('unlocked');
+              }
+            }, 100);
+          }
+          
+          // Scroll to top of page
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }
+    }
+
+    function previousStep() {
+      if (currentStep > 1) {
+        document.getElementById(`step${currentStep}`).classList.remove('active');
+        currentStep--;
+        document.getElementById(`step${currentStep}`).classList.add('active');
+        updateProgress();
+        updateNavButtons();
+        
+        // Scroll to top of page
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function updateNavButtons() {
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const navButtons = document.querySelector('.nav-buttons');
+      
+      if (currentStep === 1) {
+        prevBtn.style.display = 'none';
+        navButtons.classList.remove('has-prev');
+      } else {
+        prevBtn.style.display = 'inline-flex';
+        navButtons.classList.add('has-prev');
+      }
+      
+      if (currentStep === totalSteps) {
+        nextBtn.style.display = 'none';
+      } else {
+        nextBtn.style.display = 'inline-flex';
+        nextBtn.textContent = currentStep === totalSteps - 1 ? 'View Results →' : 'Next →';
+      }
+    }
+
+    function validateStep(step) {
+      if (step === 1) {
+        const projectType = document.querySelector('input[name="projectType"]:checked');
+        const existingFacility = document.querySelector('input[name="existingFacility"]:checked');
+        const facilityType = document.getElementById('facilityType').value;
+        
+        if (!projectType || !existingFacility || !facilityType) {
+          alert('Please answer all questions');
+          return false;
+        }
+      } else if (step === 2) {
+        const required = document.querySelectorAll('#regulatoryQuestions select[required]');
+        for (let select of required) {
+          if (!select.value) {
+            alert('Please answer all required questions');
+            select.focus();
+            return false;
+          }
+        }
+      } else if (step === 3) {
+        const required = document.querySelectorAll('#siteQuestions select[required]');
+        for (let select of required) {
+          if (!select.value) {
+            alert('Please answer all required questions');
+            select.focus();
+            return false;
+          }
+        }
+      } else if (step === 4) {
+        const required = document.querySelectorAll('#safetyQuestions select[required]');
+        for (let select of required) {
+          if (!select.value) {
+            alert('Please answer all required questions');
+            select.focus();
+            return false;
+          }
+        }
+      }
+      return true;
+    }
+
+    function generateRegulatoryQuestions() {
+      const container = document.getElementById('regulatoryQuestions');
+      container.innerHTML = '';
+      
+      const state = wizardData.state;
+      const stateData = stateRequirements[state];
+      const scenario = wizardData.scenario;
+
+      if (!stateData) {
+        container.innerHTML = '<p>' + genericRequirements.message + '</p>';
+        return;
+      }
+
+      // Scenario A questions
+      if (scenario === 'A') {
+        addQuestion(container, {
+          id: 'validFoodServiceLicense',
+          label: 'Is your current food service license/permit valid and active?',
+          type: 'select',
+          options: ['Yes', 'No', 'Expires within 30 days', "Don't know"],
+          required: true,
+          weight: 10
+        });
+
+        addQuestion(container, {
+          id: 'certifiedFoodManager',
+          label: 'Do you have a Certified Food Manager on staff?',
+          type: 'select',
+          options: ['Yes', 'No', "Don't know"],
+          required: true,
+          weight: 10
+        });
+
+        addQuestion(container, {
+          id: 'foodHandlerCards',
+          label: 'Do all food handling staff have valid Food Handler Cards?',
+          type: 'select',
+          options: ['Yes, all staff certified', 'Some staff certified', 'No', "Don't know"],
+          required: true,
+          weight: 8
+        });
+      } else {
+        // Scenario B questions
+        addQuestion(container, {
+          id: 'certifiedFoodManager',
+          label: 'Do you have a Certified Food Manager designated for this operation?',
+          type: 'select',
+          options: ['Yes', 'No - need to obtain', "Don't know"],
+          required: true,
+          weight: 10
+        });
+
+        addQuestion(container, {
+          id: 'foodHandlerCards',
+          label: 'Do food handling staff have valid Food Handler Cards for this state?',
+          type: 'select',
+          options: ['Yes, all staff certified', 'Some staff certified', 'No - need to obtain', "Don't know"],
+          required: true,
+          weight: 8
+        });
+
+        if (stateData.commissaryRequired !== 'not_required') {
+          addQuestion(container, {
+            id: 'commissaryAgreement',
+            label: 'Do you have a commissary agreement in place?',
+            type: 'select',
+            options: ['Yes - signed agreement with licensed commissary', 'No', 'Not sure if required', "Don't know"],
+            required: true,
+            weight: 8,
+            helpText: stateData.commissaryNote
+          });
+        }
+      }
+
+      // Pre-operational inspection question (applies to both scenarios)
+      addQuestion(container, {
+        id: 'preOperationalInspection',
+        label: 'Is a pre-operational health inspection scheduled?',
+        type: 'select',
+        options: ['Yes - scheduled', 'Yes - completed', 'No - need to schedule', "Don't know"],
+        required: true,
+        weight: 8
+      });
+
+      // State-specific questions
+    }
+
+    function generateSiteQuestions() {
+      const container = document.getElementById('siteQuestions');
+      container.innerHTML = '';
+
+      addQuestion(container, {
+        id: 'sitePlan',
+        label: 'Do you have a site plan showing trailer placement?',
+        type: 'select',
+        options: ['Yes', 'No - need to create', "Don't know"],
+        required: true,
+        weight: 8
+      });
+
+      addQuestion(container, {
+        id: 'powerSource',
+        label: 'Power source:',
+        type: 'select',
+        options: ['Grid connection (site electrical)', 'Generator', 'Both available', "Don't know"],
+        required: true,
+        weight: 6
+      });
+
+      // Conditional generator permit - use setTimeout to ensure DOM is ready
+      setTimeout(() => {
+        const powerQ = container.querySelector('#powerSource');
+        if (powerQ) {
+          powerQ.addEventListener('change', function() {
+            const genQ = container.querySelector('.conditional-generator');
+            if (genQ) genQ.remove();
+            
+            if (this.value === 'Generator' || this.value === 'Both available') {
+              addQuestion(container, {
+                id: 'generatorPermit',
+                label: 'If using generator, do you have generator permits/approval?',
+                type: 'select',
+                options: ['Yes', 'No', 'Not sure if required', "Don't know"],
+                required: false,
+                weight: 6,
+                conditional: true,
+                conditionalClass: 'conditional-generator'
+              });
+            }
+          });
+        }
+      }, 100);
+
+      addQuestion(container, {
+        id: 'fuelType',
+        label: 'Fuel type for cooking equipment:',
+        type: 'select',
+        options: ['Electric only', 'Propane (LP gas)', 'Natural gas', 'Combination', "Don't know"],
+        required: true,
+        weight: 0
+      });
+
+      // Conditional propane permit - use setTimeout to ensure DOM is ready
+      setTimeout(() => {
+        const fuelQ = container.querySelector('#fuelType');
+        if (fuelQ) {
+          fuelQ.addEventListener('change', function() {
+            const propQ = container.querySelector('.conditional-propane');
+            if (propQ) propQ.remove();
+            
+            if (this.value === 'Propane (LP gas)' || this.value === 'Combination') {
+              addQuestion(container, {
+                id: 'propanePermit',
+                label: 'If using propane, is propane permit obtained from Fire Marshal?',
+                type: 'select',
+                options: ['Yes', 'No', 'Not sure if required', "Don't know"],
+                required: false,
+                weight: 8,
+                conditional: true,
+                conditionalClass: 'conditional-propane'
+              });
+            }
+          });
+        }
+      }, 100);
+
+      addQuestion(container, {
+        id: 'waterConnection',
+        label: 'Water connection:',
+        type: 'select',
+        options: ['Municipal water connection available', 'Potable water tank (self-contained)', 'Both', "Don't know"],
+        required: true,
+        weight: 6
+      });
+
+      // Conditional backflow - use setTimeout to ensure DOM is ready
+      setTimeout(() => {
+        const waterQ = container.querySelector('#waterConnection');
+        if (waterQ) {
+          waterQ.addEventListener('change', function() {
+            const backQ = container.querySelector('.conditional-backflow');
+            if (backQ) backQ.remove();
+            
+            if (this.value === 'Municipal water connection available' || this.value === 'Both') {
+              addQuestion(container, {
+                id: 'backflowPrevention',
+                label: 'Is backflow prevention device installed/available?',
+                type: 'select',
+                options: ['Yes', 'No', 'Not sure', "Don't know"],
+                required: false,
+                weight: 6,
+                conditional: true,
+                conditionalClass: 'conditional-backflow'
+              });
+            }
+          });
+        }
+      }, 100);
+
+      addQuestion(container, {
+        id: 'wasteDisposal',
+        label: 'Wastewater disposal:',
+        type: 'select',
+        options: ['Connection to municipal sewer', 'Wastewater holding tank', 'Both', "Don't know"],
+        required: true,
+        weight: 6
+      });
+
+      addQuestion(container, {
+        id: 'greaseInterceptor',
+        label: 'Is a grease interceptor/trap available?',
+        type: 'select',
+        options: ['Yes - on-site or in trailer', 'No', 'Not sure if required', "Don't know"],
+        required: false,
+        weight: 6
+      });
+
+      addQuestion(container, {
+        id: 'zoningConfirmation',
+        label: 'Has zoning been confirmed for temporary structure placement?',
+        type: 'select',
+        options: ['Yes - confirmed with local zoning', 'No', 'Not sure', "Don't know"],
+        required: false,
+        weight: 6
+      });
+
+      addQuestion(container, {
+        id: 'temporaryUsePermit',
+        label: 'Have you obtained a Temporary Use Permit from the Building Department?',
+        type: 'select',
+        options: ['Yes', 'No', "Don't know"],
+        required: true,
+        weight: 10
+      });
+
+      addQuestion(container, {
+        id: 'licensedContractors',
+        label: 'Will licensed Oregon electrician/plumber perform utility connections?',
+        type: 'select',
+        options: ['Yes - licensed contractors arranged', 'No', "Don't know"],
+        required: true,
+        weight: 8
+      });
+    }
+
+    function generateSafetyQuestions() {
+      const container = document.getElementById('safetyQuestions');
+      container.innerHTML = '';
+
+      addQuestion(container, {
+        id: 'fireSuppressionDocs',
+        label: 'Is fire suppression system documentation available?',
+        type: 'select',
+        options: ['Yes - inspection current and certified', 'Yes - but inspection may be expired', 'No', "Don't know"],
+        required: true,
+        weight: 10
+      });
+
+      addQuestion(container, {
+        id: 'type1VentilationHood',
+        label: 'Is the Type I ventilation hood approved by Fire Marshal?',
+        type: 'select',
+        options: ['Yes', 'No', "Don't know"],
+        required: true,
+        weight: 8
+      });
+
+      addQuestion(container, {
+        id: 'classKFireExtinguisher',
+        label: 'Is a Class K fire extinguisher installed?',
+        type: 'select',
+        options: ['Yes', 'No', "Don't know"],
+        required: true,
+        weight: 6
+      });
+
+      addQuestion(container, {
+        id: 'emergencyShutoffs',
+        label: 'Are emergency shut-offs clearly identified?',
+        type: 'select',
+        options: ['Yes - gas, electric, fire suppression all documented', 'Partially', 'No', "Don't know"],
+        required: true,
+        weight: 6
+      });
+
+      // Conditional propane tanks (if propane selected in Step 4)
+      const fuelType = wizardData.answers.fuelType;
+      if (fuelType === 'Propane (LP gas)' || fuelType === 'Combination') {
+        addQuestion(container, {
+          id: 'propaneTanksSecured',
+          label: 'If using propane, are tanks properly located and secured?',
+          type: 'select',
+          options: ['Yes', 'No', 'Not sure of requirements', "Don't know"],
+          required: false,
+          weight: 6
+        });
+      }
+
+      addQuestion(container, {
+        id: 'adaAccess',
+        label: 'Is ADA-compliant access required?',
+        type: 'select',
+        options: ['Yes - public-facing operation', 'No - back-of-house only', 'Not sure', "Don't know"],
+        required: false,
+        weight: 4
+      });
+
+      addQuestion(container, {
+        id: 'liabilityInsurance',
+        label: 'Is liability insurance in place for the temporary operation?',
+        type: 'select',
+        options: ['Yes', 'No - need to obtain', 'In progress', "Don't know"],
+        required: true,
+        weight: 8
+      });
+
+      addQuestion(container, {
+        id: 'staffEmergencyTraining',
+        label: 'Is staff trained on trailer-specific emergency procedures?',
+        type: 'select',
+        options: ['Yes - documented training complete', 'No - training needed', 'Partial training', "Don't know"],
+        required: true,
+        weight: 6
+      });
+    }
+
+    function addQuestion(container, question) {
+      const div = document.createElement('div');
+      div.className = 'form-group' + (question.conditional ? ' ' + question.conditionalClass : '');
+      if (question.conditional) {
+        div.style.display = 'block';
+      }
+      
+      // Create label
+      const label = document.createElement('label');
+      label.setAttribute('for', question.id);
+      label.innerHTML = question.label + (question.required ? ' <span class="required">*</span>' : '');
+      
+      // Create select
+      const select = document.createElement('select');
+      select.id = question.id;
+      select.name = question.id;
+      if (question.required) select.required = true;
+      select.innerHTML = '<option value="">Select...</option>' + 
+        question.options.map(opt => `<option value="${opt}">${opt}</option>`).join('');
+      
+      // Add event listener to store answer
+      select.addEventListener('change', function() {
+        wizardData.answers[question.id] = this.value;
+        console.log('Answer stored:', question.id, '=', this.value); // Debug log
+      });
+
+      // Append elements
+      div.appendChild(label);
+      div.appendChild(select);
+      
+      // Add help text if provided
+      if (question.helpText) {
+        const helpText = document.createElement('div');
+        helpText.className = 'help-text';
+        helpText.textContent = question.helpText;
+        div.appendChild(helpText);
+      }
+      
+      container.appendChild(div);
+    }
+
+    function calculateScore() {
+      let totalPossible = 0;
+      let totalEarned = 0;
+
+      // Helper function to check if an answer is positive/compliant
+      function isPositiveAnswer(key, value) {
+        if (!value) return false;
+        
+        // "Don't know" answers score 0 (explicitly excluded)
+        if (value === "Don't know") {
+          return false;
+        }
+        
+        // Direct "Yes" answers
+        if (value === 'Yes' || 
+            value.startsWith('Yes -') || 
+            value.startsWith('Yes,') ||
+            value === 'Yes - Fully self-contained' ||
+            value === 'Yes - on-site or in trailer' ||
+            value === 'Yes - confirmed with local zoning' ||
+            value === 'Yes - public-facing operation' ||
+            value === 'Yes - documented training complete' ||
+            value === 'Yes - gas, electric, fire suppression all documented' ||
+            value === 'Yes - inspection current and certified' ||
+            value === 'Yes - signed agreement with licensed commissary' ||
+            value === 'Yes, all staff certified' ||
+            value === 'Yes - scheduled' ||
+            value === 'Yes - completed' ||
+            value === 'Yes - licensed contractors arranged') {
+          return true;
+        }
+        
+        // N/A answers (not applicable, so considered compliant)
+        if (value.startsWith('N/A')) {
+          return true;
+        }
+        
+        // For questions that don't have Yes/No format, check if it's a positive option
+        // Power source: any option is acceptable (they all indicate readiness), except "Don't know"
+        if (key === 'powerSource' && (value === 'Grid connection (site electrical)' || 
+            value === 'Generator' || value === 'Both available')) {
+          return true;
+        }
+        
+        // Water connection: any option is acceptable, except "Don't know"
+        if (key === 'waterConnection' && (value === 'Municipal water connection available' || 
+            value === 'Potable water tank (self-contained)' || value === 'Both')) {
+          return true;
+        }
+        
+        // Waste disposal: any option is acceptable, except "Don't know"
+        if (key === 'wasteDisposal' && (value === 'Connection to municipal sewer' || 
+            value === 'Wastewater holding tank' || value === 'Both')) {
+          return true;
+        }
+        
+        // Fuel type: any option is acceptable (not scored, weight is 0), except "Don't know"
+        // But if it has a weight, we should handle it
+        if (key === 'fuelType' && value !== "Don't know") {
+          return true; // All fuel types are acceptable except "Don't know"
+        }
+        
+        return false;
+      }
+      
+      // Helper function to check if an answer is partial/in-progress
+      function isPartialAnswer(value) {
+        if (!value) return false;
+        return value === 'In Progress' || 
+               value === 'In progress' ||
+               value === 'Some staff certified' || 
+               value === 'Partially' || 
+               value === 'Partial training' ||
+               value === 'Yes - but inspection may be expired';
+      }
+
+      Object.entries(wizardData.answers).forEach(([key, value]) => {
+        const weight = scoringWeights[key];
+        if (weight && weight > 0) { // Only count questions with weights > 0
+          totalPossible += weight;
+          
+          if (isPositiveAnswer(key, value)) {
+            totalEarned += weight;
+            console.log(`✓ ${key}: ${value} (+${weight} points)`);
+          } else if (isPartialAnswer(value)) {
+            totalEarned += weight * 0.5;
+            console.log(`~ ${key}: ${value} (+${weight * 0.5} points)`);
+          } else {
+            console.log(`✗ ${key}: ${value} (0 points)`);
+          }
+        }
+      });
+
+      const score = totalPossible > 0 ? Math.round((totalEarned / totalPossible) * 100) : 0;
+      console.log(`Score: ${totalEarned}/${totalPossible} = ${score}%`);
+      return score;
+    }
+
+    function calculateTimeline() {
+      const state = wizardData.state;
+      const stateData = stateRequirements[state];
+      if (!stateData) return '2-4 weeks';
+      
+      const baseTimeline = stateData.timeline;
+      const scenario = wizardData.scenario;
+      const score = calculateScore();
+      
+      let min = parseInt(baseTimeline.split('-')[0]);
+      let max = parseInt(baseTimeline.split('-')[1].split(' ')[0]);
+      
+      if (scenario === 'B') {
+        min += 1;
+        max += 2;
+      }
+      
+      const missingCritical = Object.values(wizardData.answers).filter(v => 
+        v === 'No' || v === 'No - need to obtain' || v === 'No - need to create'
+      ).length;
+      
+      if (missingCritical > 3) {
+        min += 1;
+        max += 2;
+      }
+      
+      return `${min}-${max} weeks`;
+    }
+
+    function getScoreCategory(score) {
+      if (score >= 90) return { class: 'ready', label: 'Ready to Deploy' };
+      if (score >= 70) return { class: 'almost', label: 'Almost Ready' };
+      if (score >= 50) return { class: 'action', label: 'Action Required' };
+      return { class: 'significant', label: 'Significant Preparation Needed' };
+    }
+
+    function generateResults() {
+      const score = calculateScore();
+      const category = getScoreCategory(score);
+      const state = wizardData.state;
+      const stateData = stateRequirements[state];
+      const timeline = calculateTimeline();
+      
+      const container = document.getElementById('resultsContentInner');
+      
+      // Results content (blurred initially, shown after form submission)
+      let resultsHtml = `
+        <!-- 1. Readiness Score -->
+        <div class="score-section">
+          <div class="score-circle">
+            <svg width="180" height="180">
+              <circle cx="90" cy="90" r="85" fill="none" stroke="#e2e8f0" stroke-width="10"/>
+              <circle cx="90" cy="90" r="85" fill="none" stroke="${getScoreColor(score)}" stroke-width="10"
+                stroke-dasharray="${2 * Math.PI * 85}"
+                stroke-dashoffset="${2 * Math.PI * 85 * (1 - score / 100)}"
+                transform="rotate(-90 90 90)"/>
+            </svg>
+            <span class="score-value" id="score-value">--</span>
+          </div>
+          <p class="score-label">Permit Readiness Score</p>
+          <p class="score-category ${category.class}" id="score-category">Complete the form above to see your score</p>
+        </div>
+        
+        <!-- 2. Estimated Timeline -->
+        <div class="timeline-section">
+          <h4>⏱️ Estimated Permit Timeline</h4>
+          <p class="timeline-value" id="timeline-value">-- weeks</p>
+          <p class="timeline-note">Based on your state and readiness level</p>
+        </div>
+      `;
+
+      // Missing Requirements
+      const missingItems = getMissingRequirements();
+      if (missingItems.length > 0) {
+        resultsHtml += '<div class="missing-requirements" id="missing-requirements">';
+        resultsHtml += '<h3>⚠️ Items Requiring Attention</h3>';
+        
+        const byCategory = groupByCategory(missingItems);
+        Object.entries(byCategory).forEach(([cat, items]) => {
+          resultsHtml += `<div class="category"><h4>${getCategoryIcon(cat)} ${cat}</h4><ul>`;
+          items.forEach(item => {
+            resultsHtml += `<li class="${item.severity}">${item.icon} ${item.text} - <strong>${item.action}</strong></li>`;
+          });
+          resultsHtml += '</ul></div>';
+        });
+        resultsHtml += '</div>';
+      }
+
+      // State-Specific Requirements
+      resultsHtml += '<div class="state-requirements" id="state-requirements">';
+      if (stateData) {
+        resultsHtml += generateStateGuidance(state, stateData);
+      } else {
+        resultsHtml += '<h4>📍 State Specific Requirements</h4>';
+        resultsHtml += '<p>Contact your local Health Department, Fire Marshal, and Building Department for specific requirements.</p>';
+      }
+      resultsHtml += '</div>';
+
+      // Agency Links
+      resultsHtml += '<div class="agency-links" id="agency-links">';
+      if (stateData && stateData.links) {
+        resultsHtml += `<h4>🔗 Relevant Agencies for ${state}</h4>`;
+        resultsHtml += '<div class="agency-links-list">';
+        Object.entries(stateData.links).forEach(([key, url]) => {
+          const label = formatLinkName(key);
+          resultsHtml += `<a href="${url}" target="_blank" rel="noopener" class="agency-link">${label} →</a>`;
+        });
+        resultsHtml += '</div>';
+      } else {
+        resultsHtml += '<h4>🔗 Relevant Agencies</h4>';
+        resultsHtml += '<p>Contact your local Health Department, Fire Marshal, and Building Department for specific requirements.</p>';
+      }
+      resultsHtml += '</div>';
+
+      container.innerHTML = resultsHtml;
+      
+      // Store score and data for later display
+      wizardData.calculatedScore = score;
+      wizardData.calculatedCategory = category;
+      wizardData.calculatedTimeline = timeline;
+      
+      // Set up form handler and ensure email gate is visible
+      setTimeout(() => {
+        const unlockForm = document.getElementById('unlock-form');
+        if (unlockForm) {
+          // Remove any existing listeners to avoid duplicates
+          const newForm = unlockForm.cloneNode(true);
+          unlockForm.parentNode.replaceChild(newForm, unlockForm);
+          newForm.addEventListener('submit', handleUnlockForm);
+        }
+        
+        // Ensure email gate is visible when results are generated
+        const emailGate = document.getElementById('email-gate-overlay');
+        const resultsContainer = document.getElementById('resultsContainer');
+        if (emailGate && resultsContainer) {
+          emailGate.style.display = 'flex';
+          emailGate.style.opacity = '1';
+          emailGate.style.visibility = 'visible';
+          resultsContainer.classList.remove('unlocked');
+        }
+      }, 100);
+    }
+    
+    function handleUnlockForm(e) {
+      e.preventDefault();
+      
+      // Capture form data
+      const formData = {
+        fullName: document.getElementById('full-name').value,
+        companyName: document.getElementById('company-name').value,
+        email: document.getElementById('email').value
+      };
+      
+      // Store in wizard data
+      wizardData.name = formData.fullName;
+      wizardData.company = formData.companyName;
+      wizardData.email = formData.email;
+      
+      // Calculate and display results
+      calculateAndDisplayResults();
+      
+      // Hide email gate overlay and unlock the results
+      const emailGateOverlay = document.getElementById('email-gate-overlay');
+      const resultsContainer = document.getElementById('resultsContainer');
+      
+      if (emailGateOverlay) {
+        emailGateOverlay.style.display = 'none';
+        emailGateOverlay.style.opacity = '0';
+        emailGateOverlay.style.visibility = 'hidden';
+      }
+      
+      if (resultsContainer) {
+        resultsContainer.classList.add('unlocked');
+      }
+      
+      // Prepare complete submission data
+      const submissionData = {
+        ...wizardData,
+        score: wizardData.calculatedScore,
+        category: wizardData.calculatedCategory.label,
+        timeline: wizardData.calculatedTimeline,
+        timestamp: new Date().toISOString()
+      };
+      
+      // Send to HubSpot
+      submitToHubSpot(formData, submissionData);
+      
+      // Scroll to results
+      document.getElementById('results-content').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    // ============================================
+    // HUBSPOT INTEGRATION SETUP
+    // ============================================
+    // 
+    // METHOD 1: HubSpot Forms API (Recommended - No API key needed)
+    // 1. Go to HubSpot > Marketing > Forms > Create a form
+    // 2. Get your Portal ID: HubSpot Settings > Account Setup > Account Defaults
+    // 3. Get your Form GUID: In the form embed code, look for the GUID in the URL
+    //    Example: https://api.hsforms.com/submissions/v3/integration/submit/12345678/abc-123-def-456
+    //    Portal ID = 12345678, Form GUID = abc-123-def-456
+    // 4. Update the values below
+    //
+    // METHOD 2: HubSpot Contacts API (Requires API Key)
+    // 1. Go to HubSpot Settings > Integrations > Private Apps
+    // 2. Create a private app with "contacts" scope
+    // 3. Copy your API key
+    // 4. Uncomment the submitToHubSpotContactsAPI() call in submitToHubSpot() function
+    // 5. Update HUBSPOT_API_KEY in submitToHubSpotContactsAPI() function
+    //
+    // METHOD 3: HubSpot Tracking Code
+    // 1. Go to HubSpot Settings > Tracking Code
+    // 2. Copy the tracking code
+    // 3. Paste it in the <head> section (see comment at top of file)
+    //
+    // ============================================
+    
+    const HUBSPOT_CONFIG = {
+      portalId: '1790538', // Your HubSpot Portal ID
+      formGuid: '597713d6-bff7-40c4-a665-9aa95e604e1a'  // Your HubSpot Form GUID
+    };
+    
+    // ============================================
+    // HUBSPOT FIELD MAPPING GUIDE
+    // ============================================
+    // 
+    // To create custom properties in HubSpot:
+    // 1. Go to HubSpot Settings > Properties > Contact properties
+    // 2. Click "Create property"
+    // 3. Use the exact property names listed below
+    // 4. Set the field type to "Single-line text" or "Number" as indicated
+    //
+    // STANDARD FIELDS (already exist in HubSpot):
+    // - email (Email)
+    // - firstname (First Name)
+    // - lastname (Last Name)
+    // - company (Company Name)
+    //
+    // ASSESSMENT SUMMARY FIELDS (create these):
+    // - permit_readiness_score (Number) - The readiness percentage (0-100)
+    // - permit_readiness_category (Single-line text) - Ready to Deploy/Almost Ready/etc.
+    // - permit_timeline_estimate (Single-line text) - e.g., "2-4 weeks"
+    // - project_type (Single-line text) - renovation/expansion/disaster/etc.
+    // - facility_type (Single-line text) - hotel/hospital/university/etc.
+    // - scenario (Single-line text) - "A" or "B"
+    // - assessment_timestamp (Date picker) - When assessment was completed
+    //
+    // WIZARD ANSWER FIELDS (create these - all Single-line text):
+    // See the complete list in the HUBSPOT_FIELD_MAPPING object below
+    //
+    // ============================================
+    
+    // Complete mapping of wizard question IDs to HubSpot property names
+    const HUBSPOT_FIELD_MAPPING = {
+      // Assessment Summary
+      'permit_readiness_score': 'permit_readiness_score',
+      'permit_readiness_category': 'permit_readiness_category',
+      'permit_timeline_estimate': 'permit_timeline_estimate',
+      'project_type': 'project_type',
+      'facility_type': 'facility_type',
+      'scenario': 'scenario',
+      'assessment_timestamp': 'assessment_timestamp',
+      
+      // Regulatory Questions (Step 2)
+      'validFoodServiceLicense': 'valid_food_service_license',
+      'certifiedFoodManager': 'certified_food_manager',
+      'foodHandlerCards': 'food_handler_cards',
+      'commissaryAgreement': 'commissary_agreement',
+      'preOperationalInspection': 'pre_operational_inspection',
+      
+      // Site & Utilities Questions (Step 3)
+      'sitePlan': 'site_plan',
+      'powerSource': 'power_source',
+      'generatorPermit': 'generator_permit',
+      'fuelType': 'fuel_type',
+      'propanePermit': 'propane_permit',
+      'waterConnection': 'water_connection',
+      'backflowPrevention': 'backflow_prevention',
+      'wasteDisposal': 'waste_disposal',
+      'greaseInterceptor': 'grease_interceptor',
+      'zoningConfirmation': 'zoning_confirmation',
+      'temporaryUsePermit': 'temporary_use_permit',
+      'licensedContractors': 'licensed_contractors',
+      
+      // Safety Questions (Step 4)
+      'fireSuppressionDocs': 'fire_suppression_docs',
+      'type1VentilationHood': 'type1_ventilation_hood',
+      'classKFireExtinguisher': 'class_k_fire_extinguisher',
+      'emergencyShutoffs': 'emergency_shutoffs',
+      'propaneTanksSecured': 'propane_tanks_secured',
+      'adaAccess': 'ada_access',
+      'liabilityInsurance': 'liability_insurance',
+      'staffEmergencyTraining': 'staff_emergency_training'
+    };
+    
+    async function submitToHubSpot(formData, submissionData) {
+      try {
+        console.log('🚀 Starting HubSpot submission...', {
+          email: formData.email,
+          score: submissionData.score,
+          portalId: HUBSPOT_CONFIG.portalId,
+          formGuid: HUBSPOT_CONFIG.formGuid
+        });
+        
+        // Method 1: Using HubSpot Forms API (Recommended for form submissions)
+        if (HUBSPOT_CONFIG.portalId && HUBSPOT_CONFIG.formGuid) {
+          await submitToHubSpotForm(formData, submissionData);
+        } else {
+          console.warn('⚠️ HubSpot config missing - Portal ID or Form GUID not set');
+        }
+        
+        // Method 2: Using HubSpot Contacts API (Requires API key)
+        // Uncomment and configure if you have a HubSpot API key
+        // await submitToHubSpotContactsAPI(formData, submissionData);
+        
+        // Method 3: Using HubSpot Tracking Code (if embedded)
+        if (window.hbspt) {
+          submitToHubSpotTracking(formData, submissionData);
+        }
+        
+        console.log('✅ Data submitted to HubSpot successfully');
+      } catch (error) {
+        console.error('❌ Error submitting to HubSpot:', error);
+        console.error('Error details:', {
+          message: error.message,
+          stack: error.stack
+        });
+        // Optionally show user-friendly error message
+        alert('There was an issue submitting your data. Please check the browser console (F12) for details.');
+      }
+    }
+    
+    // Method 1: Submit to HubSpot Form using Forms API
+    async function submitToHubSpotForm(formData, submissionData) {
+      // IMPORTANT: Property names must match EXACTLY what you created in HubSpot
+      // If you created "permit-readiness-score" (with hyphens), use that instead
+      // Check your HubSpot property's "Internal name" in Settings > Properties
+      
+      // Build fields array with standard contact fields
+      const fields = [
+        { name: 'email', value: formData.email },
+        { name: 'firstname', value: formData.fullName.split(' ')[0] || formData.fullName },
+        { name: 'lastname', value: formData.fullName.split(' ').slice(1).join(' ') || '' },
+        { name: 'company', value: formData.companyName },
+        // If your property is named "permit-readiness-score" (with hyphens), change the name below:
+        { name: 'permit_readiness_score', value: submissionData.score.toString() },
+        { name: 'permit_readiness_category', value: submissionData.category },
+        { name: 'permit_timeline_estimate', value: submissionData.timeline },
+        { name: 'project_type', value: submissionData.projectType || '' },
+        { name: 'facility_type', value: submissionData.facilityType || '' },
+        { name: 'scenario', value: submissionData.scenario || '' },
+        { name: 'assessment_timestamp', value: submissionData.timestamp }
+      ];
+      
+      console.log('📤 Submitting to HubSpot with fields:', fields.map(f => ({ name: f.name, value: f.value })));
+      
+      // Add all wizard answers as custom properties using the mapping
+      Object.entries(submissionData.answers || {}).forEach(([key, value]) => {
+        // Use mapping if available, otherwise convert to HubSpot-friendly format
+        const propertyName = HUBSPOT_FIELD_MAPPING[key] || key.replace(/([A-Z])/g, '_$1').toLowerCase();
+        fields.push({
+          name: propertyName,
+          value: value || ''
+        });
+      });
+      
+      // Submit to HubSpot Forms API
+      const response = await fetch(
+        `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_CONFIG.portalId}/${HUBSPOT_CONFIG.formGuid}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            fields: fields,
+            context: {
+              pageUri: window.location.href,
+              pageName: 'Mobile Kitchen Permit Assessment - Oregon'
+            }
+          })
+        }
+      );
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('HubSpot API Error:', {
+          status: response.status,
+          statusText: response.statusText,
+          error: errorText,
+          submittedFields: fields
+        });
+        throw new Error(`HubSpot submission failed: ${response.status} ${response.statusText} - ${errorText}`);
+      }
+      
+      const result = await response.json();
+      console.log('✅ HubSpot submission successful:', result);
+      console.log('📊 Submitted fields:', fields);
+      return result;
+    }
+    
+    // Method 2: Submit to HubSpot Contacts API (requires API key)
+    async function submitToHubSpotContactsAPI(formData, submissionData) {
+      const HUBSPOT_API_KEY = 'YOUR_HUBSPOT_API_KEY'; // Get from HubSpot Settings > Integrations > Private Apps
+      
+      const contactData = {
+        properties: [
+          { property: 'email', value: formData.email },
+          { property: 'firstname', value: formData.fullName.split(' ')[0] || formData.fullName },
+          { property: 'lastname', value: formData.fullName.split(' ').slice(1).join(' ') || '' },
+          { property: 'company', value: formData.companyName },
+          { property: 'permit_readiness_score', value: submissionData.score.toString() },
+          { property: 'permit_readiness_category', value: submissionData.category },
+          { property: 'permit_timeline_estimate', value: submissionData.timeline },
+          { property: 'project_type', value: submissionData.projectType || '' },
+          { property: 'facility_type', value: submissionData.facilityType || '' },
+          { property: 'scenario', value: submissionData.scenario || '' },
+          { property: 'assessment_timestamp', value: submissionData.timestamp }
+        ]
+      };
+      
+      // Add all answers as custom properties
+      Object.entries(submissionData.answers || {}).forEach(([key, value]) => {
+        const propertyName = key.replace(/([A-Z])/g, '_$1').toLowerCase();
+        contactData.properties.push({
+          property: propertyName,
+          value: value || ''
+        });
+      });
+      
+      const response = await fetch(
+        `https://api.hubapi.com/contacts/v1/contact/createOrUpdate/email/${formData.email}?hapikey=${HUBSPOT_API_KEY}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(contactData)
+        }
+      );
+      
+      if (!response.ok) {
+        throw new Error(`HubSpot API submission failed: ${response.statusText}`);
+      }
+      
+      return await response.json();
+    }
+    
+    // Method 3: Using HubSpot Tracking Code (if embedded)
+    function submitToHubSpotTracking(formData, submissionData) {
+      // This requires HubSpot tracking code to be embedded in the page
+      // The tracking code automatically captures form submissions
+      if (window.hbspt && window.hbspt.forms) {
+        // If you have a HubSpot form embedded, you can submit to it
+        console.log('HubSpot tracking code detected');
+      }
+    }
+    
+    function calculateAndDisplayResults() {
+      const score = wizardData.calculatedScore;
+      const category = wizardData.calculatedCategory;
+      const timeline = wizardData.calculatedTimeline;
+      
+      // Display score with animation
+      animateScore(score);
+      
+      // Set score category
+      const categoryEl = document.getElementById('score-category');
+      categoryEl.textContent = category.label;
+      categoryEl.className = 'score-category ' + category.class;
+      
+      // Display timeline
+      document.getElementById('timeline-value').textContent = timeline;
+    }
+    
+    function animateScore(targetScore) {
+      const scoreEl = document.getElementById('score-value');
+      let current = 0;
+      const duration = 1500; // ms
+      const increment = targetScore / (duration / 16);
+      
+      const animate = () => {
+        current += increment;
+        if (current < targetScore) {
+          scoreEl.textContent = Math.round(current) + '%';
+          requestAnimationFrame(animate);
+        } else {
+          scoreEl.textContent = targetScore + '%';
+        }
+      };
+      
+      requestAnimationFrame(animate);
+    }
+
+    function getScoreColor(score) {
+      if (score >= 90) return '#22c55e';
+      if (score >= 70) return '#f59e0b';
+      if (score >= 50) return '#f59e0b';
+      return '#ef4444';
+    }
+
+    function getMissingRequirements() {
+      const missing = [];
+      const answers = wizardData.answers;
+      const state = wizardData.state;
+      const stateData = stateRequirements[state];
+
+      // Regulatory
+      if (answers.validFoodServiceLicense === 'No' || answers.validFoodServiceLicense === 'Expires within 30 days') {
+        missing.push({
+          category: 'Regulatory & Licensing',
+          text: 'Food service license not valid or expiring soon',
+          action: 'Renew or obtain valid license before operation',
+          severity: answers.validFoodServiceLicense === 'No' ? 'critical' : 'warning',
+          icon: answers.validFoodServiceLicense === 'No' ? '❌' : '⚠️'
+        });
+      }
+
+      if (answers.certifiedFoodManager === 'No' || answers.certifiedFoodManager === 'No - need to obtain') {
+        missing.push({
+          category: 'Regulatory & Licensing',
+          text: 'Certified Food Manager not designated',
+          action: 'Required before operation',
+          severity: 'critical',
+          icon: '❌'
+        });
+      }
+
+      if (answers.foodHandlerCards === 'No' || answers.foodHandlerCards === 'Some staff certified' || 
+          answers.foodHandlerCards === 'No - need to obtain') {
+        missing.push({
+          category: 'Regulatory & Licensing',
+          text: 'Food Handler Cards incomplete',
+          action: stateData ? `Must complete within ${stateData.foodHandlerNote?.match(/\d+ days/) || 'required timeframe'}` : 'Required for all staff',
+          severity: answers.foodHandlerCards === 'No' || answers.foodHandlerCards === 'No - need to obtain' ? 'critical' : 'warning',
+          icon: answers.foodHandlerCards === 'No' || answers.foodHandlerCards === 'No - need to obtain' ? '❌' : '⚠️'
+        });
+      }
+
+      if ((answers.commissaryAgreement === 'No' || answers.commissaryAgreement === 'Not sure if required') && 
+          stateData && stateData.commissaryRequired === 'required') {
+        missing.push({
+          category: 'Regulatory & Licensing',
+          text: 'Commissary Agreement not confirmed',
+          action: 'Required for mobile units',
+          severity: 'critical',
+          icon: '❌'
+        });
+      }
+
+      if (answers.preOperationalInspection === 'No - need to schedule' || answers.preOperationalInspection === "Don't know") {
+        missing.push({
+          category: 'Regulatory & Licensing',
+          text: 'Pre-operational health inspection not scheduled',
+          action: 'Required before operation begins',
+          severity: answers.preOperationalInspection === "Don't know" ? 'warning' : 'critical',
+          icon: answers.preOperationalInspection === "Don't know" ? '⚠️' : '❌'
+        });
+      }
+
+      // Site & Utilities
+      if (answers.sitePlan === 'No - need to create') {
+        missing.push({
+          category: 'Site & Utilities',
+          text: 'Site plan not available',
+          action: 'Required for permit application',
+          severity: 'critical',
+          icon: '❌'
+        });
+      }
+
+      if (answers.backflowPrevention === 'No') {
+        missing.push({
+          category: 'Site & Utilities',
+          text: 'Backflow prevention not confirmed',
+          action: 'Required for water connection',
+          severity: 'critical',
+          icon: '❌'
+        });
+      }
+
+      if (answers.temporaryUsePermit === 'No' || answers.temporaryUsePermit === "Don't know") {
+        missing.push({
+          category: 'Site & Utilities',
+          text: 'Temporary Use Permit not obtained',
+          action: 'Required from Building Department',
+          severity: answers.temporaryUsePermit === "Don't know" ? 'warning' : 'critical',
+          icon: answers.temporaryUsePermit === "Don't know" ? '⚠️' : '❌'
+        });
+      }
+
+      if (answers.licensedContractors === 'No' || answers.licensedContractors === "Don't know") {
+        missing.push({
+          category: 'Site & Utilities',
+          text: 'Licensed contractors not arranged',
+          action: 'Required for utility connections in Oregon',
+          severity: answers.licensedContractors === "Don't know" ? 'warning' : 'critical',
+          icon: answers.licensedContractors === "Don't know" ? '⚠️' : '❌'
+        });
+      }
+
+      // Safety
+      if (answers.fireSuppressionDocs === 'No' || answers.fireSuppressionDocs === 'Yes - but inspection may be expired' || answers.fireSuppressionDocs === "Don't know") {
+        missing.push({
+          category: 'Safety',
+          text: 'Fire suppression documentation incomplete',
+          action: answers.fireSuppressionDocs === 'No' ? 'Required before operation' : answers.fireSuppressionDocs === "Don't know" ? 'Verify with Fire Marshal' : 'Verify certification date',
+          severity: answers.fireSuppressionDocs === 'No' ? 'critical' : 'warning',
+          icon: answers.fireSuppressionDocs === 'No' ? '❌' : '⚠️'
+        });
+      }
+
+      if (answers.type1VentilationHood === 'No' || answers.type1VentilationHood === "Don't know") {
+        missing.push({
+          category: 'Safety',
+          text: 'Type I ventilation hood approval not confirmed',
+          action: 'Required by Fire Marshal',
+          severity: answers.type1VentilationHood === "Don't know" ? 'warning' : 'critical',
+          icon: answers.type1VentilationHood === "Don't know" ? '⚠️' : '❌'
+        });
+      }
+
+      if (answers.classKFireExtinguisher === 'No' || answers.classKFireExtinguisher === "Don't know") {
+        missing.push({
+          category: 'Safety',
+          text: 'Class K fire extinguisher not installed',
+          action: 'Required for commercial kitchen operations',
+          severity: answers.classKFireExtinguisher === "Don't know" ? 'warning' : 'critical',
+          icon: answers.classKFireExtinguisher === "Don't know" ? '⚠️' : '❌'
+        });
+      }
+
+      if (answers.emergencyShutoffs === 'No' || answers.emergencyShutoffs === "Don't know") {
+        missing.push({
+          category: 'Safety',
+          text: 'Emergency shut-offs not clearly identified',
+          action: 'Required for safety compliance',
+          severity: answers.emergencyShutoffs === "Don't know" ? 'warning' : 'critical',
+          icon: answers.emergencyShutoffs === "Don't know" ? '⚠️' : '❌'
+        });
+      }
+
+      if (answers.staffEmergencyTraining === 'No - training needed' || answers.staffEmergencyTraining === 'Partial training') {
+        missing.push({
+          category: 'Safety',
+          text: 'Staff emergency training not complete',
+          action: 'Required before operation',
+          severity: 'critical',
+          icon: '❌'
+        });
+      }
+
+      return missing;
+    }
+
+    function groupByCategory(items) {
+      const grouped = {};
+      items.forEach(item => {
+        if (!grouped[item.category]) {
+          grouped[item.category] = [];
+        }
+        grouped[item.category].push(item);
+      });
+      return grouped;
+    }
+
+    function getCategoryIcon(category) {
+      const icons = {
+        'Regulatory & Licensing': '🏛️',
+        'Site & Utilities': '🔧',
+        'Safety': '🔥'
+      };
+      return icons[category] || '📋';
+    }
+
+    function generateStateGuidance(state, stateData) {
+      let guidance = '<div class="state-guidance">';
+      guidance += `<h4>📍 ${state} Specific Requirements</h4><ul>`;
+
+      if (stateData.foodHandlerRequired) {
+        guidance += `<li><strong>${stateData.foodHandlerName}</strong> required for all staff`;
+        if (stateData.foodHandlerNote) guidance += ` - ${stateData.foodHandlerNote}`;
+        guidance += `</li>`;
+      }
+
+      if (stateData.cfmRequired) {
+        guidance += `<li><strong>Certified Food Manager</strong> required`;
+        if (stateData.cfmNote) guidance += ` - ${stateData.cfmNote}`;
+        guidance += `</li>`;
+      }
+
+
+      if (stateData.commissaryRequired !== 'not_required') {
+        guidance += `<li><strong>Commissary:</strong> ${stateData.commissaryNote}</li>`;
+      }
+
+      guidance += `<li><strong>Wastewater tank:</strong> ${stateData.wastewaterRule}</li>`;
+      guidance += `<li><strong>Permit fees:</strong> ${stateData.permitFee}</li>`;
+      guidance += `<li><strong>Typical timeline:</strong> ${stateData.timeline}</li>`;
+
+      if (stateData.specialNote) {
+        guidance += `<li class="note">📌 ${stateData.specialNote}</li>`;
+      }
+
+      guidance += '</ul></div>';
+      return guidance;
+    }
+
+    function formatLinkName(key) {
+      const names = {
+        health: 'Health Department',
+        fire: 'Fire Marshal',
+        building: 'Building Department'
+      };
+      return names[key] || key.charAt(0).toUpperCase() + key.slice(1);
+    }
+
+  </script>
+</body>
+</html>
+
